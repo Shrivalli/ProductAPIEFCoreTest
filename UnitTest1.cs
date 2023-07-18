@@ -77,6 +77,17 @@ namespace ProductTest
             Assert.AreEqual(2, count);
         }
 
+        [Test]
+        public void TestAddNewProduct()
+        {
+            
+            Product p1 = new Product(10, "Laptop", 89000);
+            ProdRepo obj = new ProdRepo(billcontextmock.Object);
+            string msg=obj.AddNewProduct(p1);
+            Assert.AreEqual("Record Added", msg);
+
+        }
+
 
 
 
