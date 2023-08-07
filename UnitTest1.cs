@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using ProductAPIEFCore;
@@ -86,6 +87,31 @@ namespace ProductTest
             string msg=obj.AddNewProduct(p1);
             Assert.AreEqual("Record Added", msg);
 
+        }
+
+        [Test]
+        public void TestAddNewProductNull()
+        {
+
+            Product p1 = null;
+            ProdRepo obj = new ProdRepo(billcontextmock.Object);
+            string msg = obj.AddNewProduct(p1);
+            Assert.AreEqual("Error", msg);
+
+        }
+
+        //Testing the controller methods
+        [Test]
+        public void TestControllerGetAllProducts()
+        {
+            //Mocking the repo layer
+            prodrepo.Setup(x => x.GetAllProducts()).Returns(Products);
+            var obj = new ProductController(prodrepo.Object);
+            var res = obj.GetAllProducts();
+            Assert.That(res, Is.InstanceOf<OkObjectResult>());
+           
+            
+           
         }
 
 
